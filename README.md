@@ -1,4 +1,4 @@
-# oknime
+# Weebsclopedia website
 
 ## Project setup
 ```
