@@ -18,21 +18,53 @@
     <span class="subtitle-1 font-weight-regular">Manga</span>
     <v-spacer></v-spacer>
 
-    <div class="mr-4">
-      <login title="Login" />
-    </div>
-    <div class="mr-4">
-      <register title="Register" />
-    </div>
+    <template v-if="user.loggedIn">
+      <div class="mr-4">
+        {{ user.data.displayName }}
+      </div>
+      <div class="mr-4">
+        <v-btn text large color="#00838F" @click.prevent="logout">
+          Sign Out
+        </v-btn>
+      </div>
+    </template>
+
+    <template v-else>
+      <div class="mr-4">
+        <login title="Login" />
+      </div>
+      <div class="mr-4">
+        <register title="Register" />
+      </div>
+    </template>
   </v-app-bar>
 </template>
 <script>
 import register from "../modal/ModalRegister.vue";
 import login from "../modal/ModalLogin.vue";
+import { mapGetters } from "vuex";
+import firebase from "firebase";
 export default {
   components: {
     login: login,
     register: register
+  },
+  computed: {
+    ...mapGetters({
+      user: "user"
+    })
+  },
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "home"
+          });
+        });
+    }
   }
 };
 </script>

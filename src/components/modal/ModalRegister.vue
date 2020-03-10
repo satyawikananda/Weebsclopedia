@@ -97,7 +97,7 @@ export default {
           this.error = err;
           setTimeout(() => {
             this.error = "";
-          }, 1000);
+          }, 5000);
         });
       this.isLoading = false;
     }
