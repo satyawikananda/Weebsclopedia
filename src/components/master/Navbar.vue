@@ -22,17 +22,17 @@
       <login title="Login" />
     </div>
     <div class="mr-4">
-      <v-btn text large color="#00838F">
-        Register
-      </v-btn>
+      <register title="Register" />
     </div>
   </v-app-bar>
 </template>
 <script>
+import register from "../modal/ModalRegister.vue";
 import login from "../modal/ModalLogin.vue";
 export default {
   components: {
-    login: login
+    login: login,
+    register: register
   }
 };
 </script>
