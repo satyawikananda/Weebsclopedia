@@ -14,28 +14,29 @@
     </div>
 
     <v-spacer></v-spacer>
-    <span class="subtitle-1 font-weight-regular mr-5">Anime</span>
-    <span class="subtitle-1 font-weight-regular">Manga</span>
-    <v-spacer></v-spacer>
 
     <template v-if="user.loggedIn">
-      <div class="mr-4">
-        {{ user.data.displayName }}
-      </div>
-      <div class="mr-4">
-        <v-btn text large color="#00838F" @click.prevent="logout">
+      <v-toolbar-items>
+        <v-btn v-for="item in menu" :key="item.key" text large>{{
+          item.title
+        }}</v-btn>
+        <v-btn text large>
+          {{ user.data.displayName }}
+        </v-btn>
+        <v-btn text large @click.prevent="logout">
           Sign Out
         </v-btn>
-      </div>
+      </v-toolbar-items>
     </template>
 
     <template v-else>
-      <div class="mr-4">
+      <v-toolbar-items>
+        <v-btn v-for="item in menu" :key="item.key" text large>{{
+          item.title
+        }}</v-btn>
         <login title="Login" />
-      </div>
-      <div class="mr-4">
         <register title="Register" />
-      </div>
+      </v-toolbar-items>
     </template>
   </v-app-bar>
 </template>
@@ -45,6 +46,22 @@ import login from "../modal/ModalLogin.vue";
 import { mapGetters } from "vuex";
 import firebase from "firebase";
 export default {
+  data() {
+    return {
+      menu: [
+        {
+          title: "Anime",
+          link: "/",
+          key: "anime"
+        },
+        {
+          title: "Manga",
+          link: "/",
+          key: "manga"
+        }
+      ]
+    };
+  },
   components: {
     login: login,
     register: register
