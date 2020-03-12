@@ -2,10 +2,10 @@
   <v-app-bar app color="primary" dark inverted-scroll>
     <div class="d-flex align-center">
       <v-img
-        alt="Vuetify Logo"
+        alt="Weebsclopedia Logo"
         class="shrink mr-2"
         contain
-        src="https://firebasestorage.googleapis.com/v0/b/weebsclopedia.appspot.com/o/img%2F001.png?alt=media&token=51063fad-a321-45bb-9e6b-d7fe2ac43d5f"
+        :src="image"
         transition="scale-transition"
         width="40"
       />
@@ -59,7 +59,9 @@ export default {
           link: "/",
           key: "manga"
         }
-      ]
+      ],
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/weebsclopedia.appspot.com/o/img%2F001.png?alt=media&token=51063fad-a321-45bb-9e6b-d7fe2ac43d5f"
     };
   },
   components: {
