@@ -7,7 +7,7 @@
         sm="12"
         lg="5"
         id="bg-sectionTwo"
-        :style="{ backgroundColor: '#0288D1', padding: '50px' }"
+        :style="{ padding: '50px' }"
       >
         <v-container fluid>
           <v-layout column align-center justify-center>
@@ -37,9 +37,11 @@
               <v-col cols="12" sm="8" md="8" class="mx-auto">
                 <v-text-field
                   label="Solo"
-                  placeholder="Search anime"
+                  placeholder="Example: Haikyuu!! To the top"
                   solo
                   rounded
+                  v-model="search"
+                  @keyup.enter="getSearch"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -56,14 +58,28 @@
         <v-container fluid>
           <v-layout column align-center justify-center>
             <h3 class="display-1 font-weight-reguler text-black text-center">
-              This is the result
+              Anime Search: {{ search }}
             </h3>
             <v-row no-gutters>
-              <v-col cols="12" sm="12" md="12" lg="6" class="mx-auto mt-5">
+              <v-col cols="12" sm="12" md="12" lg="12" class="mx-auto mt-5">
+                <v-sheet color="accent">
+                  <v-skeleton-loader
+                    type="card, article"
+                    width="400"
+                    :boilerplate="boilerplate"
+                    v-if="firstLoad"
+                    :loading="loading"
+                  >
+                  </v-skeleton-loader>
+                </v-sheet>
                 <card-anime
-                  :image="data.image"
+                  v-show="!firstLoad"
+                  :loading="loading"
+                  v-for="(data, index) in datas"
+                  :key="index"
+                  :image="data.image_url"
                   :title="data.title"
-                  :content="data.content"
+                  :content="data.synopsis"
                 />
               </v-col>
             </v-row>
@@ -75,17 +91,44 @@
 </template>
 <script>
 import cardAnime from "@/components/card/CardAnime.vue";
+import { API_URL } from "@/const.js";
 export default {
+  inject: ["theme"],
   data() {
     return {
-      data: {
-        image:
-          "https://cdn.myanimelist.net/images/anime/1694/104929.jpg?s=f5f4c91024fb648f756a10c0a78ccb06",
-        title: "Haikyuu!!: To the Top",
-        content:
-          "With Karasuno High School preparing for the Spring Nationals, enthusiasm and tension are high among the team. However, when Kageyama is invited to the All-Japan Youth Training Camp, and Tsukishima is..."
-      }
+      datas: [],
+      search: "",
+      boilerplate: true,
+      page: 1,
+      limit: 1,
+      type: "anime",
+      firstLoad: true,
+      loading: true
     };
+  },
+  methods: {
+    async getSearch() {
+      try {
+        this.boilerplate = false;
+        this.loading = true;
+        const { data } = await this.$http.request({
+          method: "GET",
+          url: `${API_URL}search/` + this.type,
+          params: {
+            page: this.page,
+            limit: this.limit,
+            q: this.search
+          }
+        });
+        this.datas = data.results;
+        console.log(this.datas);
+        this.loading = false;
+        this.firstLoad = false;
+      } catch (err) {
+        this.boilerplate = false;
+        throw new err();
+      }
+    }
   },
   components: {
     "card-anime": cardAnime
