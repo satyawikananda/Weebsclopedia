@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="primary" dark>
+  <v-app-bar app color="primary" dark inverted-scroll>
     <div class="d-flex align-center">
       <v-img
         alt="Vuetify Logo"
@@ -78,7 +78,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "home"
+            name: "Homepage"
           });
         });
     }
