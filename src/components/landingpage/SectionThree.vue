@@ -35,8 +35,9 @@
 </template>
 <script>
 import CardTopAnime from "@/components/card/CardTopAnime.vue";
-import { API_URL } from "@/const.js";
+import { dataTopTen } from "@/mixins/getTopTen.js";
 export default {
+  mixins: [dataTopTen],
   components: {
     "card-top-anime": CardTopAnime
   },
@@ -44,33 +45,8 @@ export default {
     return {
       datas: [],
       type: "anime",
-      page: 1,
       subtype: "airing"
     };
-  },
-  methods: {
-    async getData() {
-      try {
-        const { data } = await this.$http.request({
-          method: "GET",
-          url:
-            `${API_URL}` +
-            "top/" +
-            this.type +
-            "/" +
-            this.page +
-            "/" +
-            this.subtype,
-          json: true
-        });
-        this.datas = data.top.slice(0, 10);
-      } catch (err) {
-        throw new err();
-      }
-    }
-  },
-  created() {
-    this.getData();
   }
 };
 </script>
