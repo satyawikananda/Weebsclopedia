@@ -10,7 +10,14 @@ export default new Router({
     {
       path: "/",
       name: "Homepage",
-      component: () => import("./views/Homepage.vue")
+      component: () => import("./views/Homepage.vue"),
+      meta: { transition: "overlay-right-full" }
+    },
+    {
+      path: "/anime/:id",
+      name: "anime.detail",
+      component: () => import("./views/DetailAnime.vue"),
+      meta: { transition: "overlay-left-full" }
     }
   ]
 });
