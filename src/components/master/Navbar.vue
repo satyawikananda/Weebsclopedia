@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="primary" dark inverted-scroll>
+  <v-app-bar app color="primary" dark>
     <div class="d-flex align-center">
       <v-img
         alt="Weebsclopedia Logo"
