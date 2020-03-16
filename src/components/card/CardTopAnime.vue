@@ -20,7 +20,7 @@
     </v-card-subtitle>
 
     <v-card-actions>
-      <v-btn color="cyan darken-2" text>
+      <v-btn color="cyan darken-2" text :to="route">
         Read more
       </v-btn>
 
@@ -37,7 +37,8 @@ export default {
   props: {
     image: String,
     title: String,
-    rank: Number
+    rank: Number,
+    route: Object
   },
   data() {
     return {

@@ -24,6 +24,13 @@
                   :title="data.title"
                   :image="data.image_url"
                   :rank="data.rank"
+                  :route="{
+                    name: 'anime.detail',
+                    params: {
+                      id: data.mal_id,
+                      data: data
+                    }
+                  }"
                 />
               </v-slide-item>
             </v-slide-group>

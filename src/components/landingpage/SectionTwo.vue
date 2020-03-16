@@ -80,6 +80,13 @@
                   :image="data.image_url"
                   :title="data.title"
                   :content="data.synopsis"
+                  :route="{
+                    name: 'anime.detail',
+                    params: {
+                      id: data.mal_id,
+                      data: data
+                    }
+                  }"
                 />
               </v-col>
             </v-row>
